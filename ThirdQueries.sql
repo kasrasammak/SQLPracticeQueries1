@@ -58,15 +58,27 @@ group by calendar_year, e.gender
 having calendar_year >= 1990
 order by calendar_year asc;
 
-
-select *
-from dept_manager;
-
 #query 8
-select YEAR(from_date) as calendar_year, count(DISTINCT emp_id)
+select YEAR(from_date) as calendar_year, count(DISTINCT emp_id) as managers
 from dept_manager
 group by calendar_year
 having calendar_year >= 1990
 order by calendar_year asc;
 
+#query 9
+select YEAR(dm.from_date) as calendar_year, d.dept_name as department_name, count(dm.emp_id) as employee
+from dept_manager dm
+join departments d
+on dm.dept_no = d.dept_no
+where YEAR(dm.from_date) >= 1990
+group by department_name, calendar_year
+order by calendar_year, department_name;
 
+#query 10
+select YEAR(d.from_date) as calendar_year, e.gender, count(e.emp_id)
+from dept_manager d
+join employees e
+on d.emp_id = e.emp_id
+group by calendar_year, e.gender
+having calendar_year >= 1990
+order by calendar_year asc;
